@@ -9,7 +9,8 @@ import win32ui
 import win32api
 import time
 from ScreenViewer import ScreenViewer
-from keys import Keys
+import getkeys as gk
+import pyautogui as pgui
 
 
 class putText():
@@ -66,9 +67,9 @@ class displayCV2():
         self.k = 0
         cv2.namedWindow(self.nameWindow)
         cv2.setMouseCallback(self.nameWindow, self.mouse)
-        self.keys = Keys()
         self.loop = True
         self.info = True
+        self.winkeys_flag = True
         self.image = None
         self.image_info = None
         self.help = False
@@ -170,9 +171,17 @@ class displayCV2():
 
     def keyCommand(self):
         self.k = cv2.waitKey(1)
-        if self.k == ord('q'):
+        self.Tk = gk.key_check()
+        # if self.k == 'Q':
+        if self.k == ord('q') or ('Q' in self.Tk and self.winkeys_flag):
             cv2.destroyAllWindows()
             self.loop = False
+        if self.k == ord('W') or ('W' in self.Tk and gk.LSHIFT not in self.Tk and self.winkeys_flag):
+            self.winkeys_flag = not self.winkeys_flag
+            if self.winkeys_flag:
+                self.last_command = "Use win keys"
+            else:
+                self.last_command = "Use cv2 keys"
         elif self.k == ord('i'):
             self.last_command = "info"
             self.info = not self.info
@@ -226,15 +235,11 @@ class displayCV2():
             with open('config.yaml', 'w') as outfile:
                 yaml.dump(self.cfg, outfile)
 
-        elif self.k == ord('T'):         # wait for ESC key to exit
+        # elif self.k == 'T':
+        elif self.k == ord('T'):
             self.last_command = "Test"
             print("=====Debug=====")
-            lParam = win32api.MAKELONG(self.ix, self.iy)
-            b = win32gui.PostMessage(
-                self.sv.hwnd, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, lParam)
-            a = win32gui.PostMessage(
-                self.sv.hwnd, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, lParam)
-            print(b, a)
+            pgui.click(self.ix, self.iy)
 
 
 def isEqual(a, b):
