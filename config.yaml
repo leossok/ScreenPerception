@@ -1,0 +1,37 @@
+refCircle:
+- !!python/tuple [179, 263]
+- !!python/tuple [397, 170]
+refCircleclr:
+- !!python/tuple
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args: [u1, 0, 1]
+      state: !!python/tuple [3, '|', null, null, null, -1, -1, 0]
+    - !!binary |
+      Jg==
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      JQ==
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      JQ==
+- !!python/tuple
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      JA==
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      JA==
+  - !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      JA==
+refPt:
+- - !!python/tuple [118, 203]
+  - !!python/tuple [229, 299]
+- - !!python/tuple [335, 99]
+  - !!python/tuple [442, 248]
